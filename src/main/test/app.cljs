@@ -1,11 +1,10 @@
 (ns test.app
   (:require
-    ["expo" :as ex]
+    ["expo-status-bar" :as esb]
     ["react-native" :as rn]
     ["react" :as react]
     [reagent.core :as r]
-    [shadow.expo :as expo]
-    ))
+    [shadow.expo :as expo]))
 
 ;; must use defonce and must refresh full app so metro can fill these in
 ;; at live-reload time `require` does not exist and will cause errors
@@ -29,7 +28,8 @@
 (defn root []
   [:> rn/View {:style (.-container styles)}
    [:> rn/Text {:style (.-title styles)} "Hello!"]
-   [:> rn/Image {:source splash-img :style {:width 200 :height 200}}]])
+   [:> rn/Image {:source splash-img :style {:width 200 :height 200}}]
+   [:> esb/StatusBar {:style "auto"}]])
 
 (defn start
   {:dev/after-load true}
@@ -38,4 +38,3 @@
 
 (defn init []
   (start))
-

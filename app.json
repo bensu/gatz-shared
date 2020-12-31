@@ -4,7 +4,6 @@
     "slug": "reagent-expo",
     "privacy": "public",
     "entryPoint": "./app/index.js",
-    "sdkVersion": "35.0.0",
     "platforms": [
       "ios",
       "android",
@@ -26,6 +25,15 @@
     ],
     "ios": {
       "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
     }
   }
 }
