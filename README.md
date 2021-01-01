@@ -6,7 +6,8 @@ $ yarn start
 
 ;; production build
 $ shadow-cljs release app
-;; no idea what to do for expo
+$ expo build:android
+$ expo build:ios
 ```
 
 You can also use `expo start --web` in order to run [react native web](https://github.com/necolas/react-native-web).
