@@ -5,7 +5,7 @@
   "src/test"]
 
  :dependencies
- [[reagent "1.0.0"]]
+ [[lilactown/helix "0.0.13"]]
 
  :builds
  {:app

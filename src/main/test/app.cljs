@@ -1,10 +1,11 @@
 (ns test.app
   (:require
     ["expo-status-bar" :as esb]
-    ["react-native" :as rn]
     ["react" :as react]
-    [reagent.core :as r]
-    [shadow.expo :as expo]))
+    ["react-native" :as rn]
+    [helix.core :refer [defnc $]]
+    [shadow.expo :as expo]
+    [test.logo :as logo]))
 
 ;; must use defonce and must refresh full app so metro can fill these in
 ;; at live-reload time `require` does not exist and will cause errors
@@ -17,7 +18,7 @@
            {:flex 1
             :backgroundColor "#fff"
             :alignItems "center"
-            :justifyContent "center"}
+            :justifyContent "space-around"}
            :title
            {:fontWeight "bold"
             :fontSize 24
@@ -25,16 +26,17 @@
           (clj->js)
           (rn/StyleSheet.create)))
 
-(defn root []
-  [:> rn/View {:style (.-container styles)}
-   [:> rn/Text {:style (.-title styles)} "Hello!"]
-   [:> rn/Image {:source splash-img :style {:width 200 :height 200}}]
-   [:> esb/StatusBar {:style "auto"}]])
+(defnc root []
+  ($ rn/View {:style (.-container styles)}
+     ($ rn/Text {:style (.-title styles)} "Hello!")
+     ($ logo/logo {:width 180, :height 180})
+     ($ rn/Image {:source splash-img :style #js {:width 200 :height 200}})
+     ($ esb/StatusBar {:style "auto"})))
 
 (defn start
   {:dev/after-load true}
   []
-  (expo/render-root (r/as-element [root])))
+  (expo/render-root ($ root)))
 
 (defn init []
   (start))

@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "hello-world",
-    "slug": "reagent-expo",
+    "slug": "helix-expo",
     "privacy": "public",
     "entryPoint": "./app/index.js",
     "platforms": [
