@@ -11,7 +11,9 @@
      ($ Defs
         ($ Mask {:fill "#fff", :id "mask"}
            ($ Circle {:r 200, :cx 200, :cy 200})))
-     ($ G {:fillRule "evenodd", :fill "none", :strokeWidth 0, :mask "url(#mask)"}
+     ($ Circle {:r 199, :cx 200, :cy 200, :stroke "#e7e7e7", :strokeWidth 1, :fill "#fff"})
+     ($ G {:fillRule "evenodd", :fill "none", :strokeWidth 0, :mask "url(#mask)",
+           :transform "scale(0.92) translate(16, 16)"}
         ($ Circle {:r 200, :cx 200, :cy 200, :fill "#4f80df"})
         ($ Circle {:r 71.5, :cx 370, :cy 200, :fill "#89b4ff"})
         ($ Circle {:r 180, :cx 60, :cy 360, :fill "#40b400"})

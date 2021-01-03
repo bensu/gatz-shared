@@ -29,7 +29,7 @@
 (defnc root []
   ($ rn/View {:style (.-container styles)}
      ($ rn/Text {:style (.-title styles)} "Hello!")
-     ($ logo/logo {:width 180, :height 180})
+     ($ logo/logo {:width 200, :height 200})
      ($ rn/Image {:source splash-img :style #js {:width 200 :height 200}})
      ($ esb/StatusBar {:style "auto"})))
 
