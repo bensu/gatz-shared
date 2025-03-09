@@ -12,3 +12,11 @@ pom.xml
 .idea/
 *.iml
 app/
+
+.calva/
+.clj-kondo/
+.shadow-cljs/
+.lsp/
+target/
+.cpcache/
+bin/tailwind

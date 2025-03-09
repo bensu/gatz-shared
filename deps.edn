@@ -1,0 +1,26 @@
+{:paths ["src" "test" "resources" "target/resources"]
+ :aliases {:test {:ns-default gatz.test}
+           :build {:ns-default gatz.system
+                   :paths ["tasks/src"]}
+           :cljs {:extra-deps {org.clojure/clojurescript {:mvn/version "1.11.132"}
+                               olical/cljs-test-runner {:mvn/version "3.8.0"}
+                               thheller/shadow-cljs {:mvn/version "2.28.21"}}}}
+ :deps {org.clojure/clojure {:mvn/version "1.11.1"}
+        com.taoensso/nippy {:mvn/version "3.1.1"}
+        metosin/malli {:mvn/version "0.17.0"}
+        dev.weavejester/medley {:mvn/version "1.7.0"}
+
+        org.clojure/tools.logging {:mvn/version "1.2.4"}
+
+        ;; rum/rum {:mvn/version "0.12.8"
+        ;;          :exclusions [cljsjs/react cljsjs/react-dom]}
+
+        io.github.clojure/tools.build {:mvn/version "0.9.6"}
+        nrepl/nrepl                    {:mvn/version "1.0.0"}
+        org.clojure/tools.deps.alpha   {:git/url "https://github.com/clojure/tools.deps.alpha"
+                                        :sha "8f8fc2571e721301b6d52e191129248355cb8c5a"}
+        org.clojure/tools.namespace    {:mvn/version "1.4.4"}
+        org.clojure/test.check         {:mvn/version "1.1.0"}
+        cider/cider-nrepl              {:mvn/version "0.45.0"}
+        refactor-nrepl/refactor-nrepl  {:mvn/version "3.10.0"}
+        org.clojure/java.classpath     {:mvn/version "1.1.0"}}}
