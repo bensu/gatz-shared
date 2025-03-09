@@ -8,8 +8,7 @@
             [crdt.core :as crdt])
   (:import [java.util Date UUID]))
 
-(defn now []
-  (Date.))
+(defn now [] (Date.))
 
 (def gen-date
   "Generates random dates between 1970 and 2100"
