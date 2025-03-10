@@ -26,7 +26,11 @@ export type SyncEngine = any;
 type EdnClient = any;
 
 export function new_sync_engine(base_url: string, token: string, user_id: UUID): SyncEngine;
+export function handle_ws_edn(sync: SyncEngine, edn: any): void;
+
+// User sync
 export function subscribe_to_me(sync: SyncEngine, listener_name: string, callback: (user: any) => void): () => void;
 export function merge_to_me(sync: SyncEngine, delta: any): void;
 export function set_full_name(sync: SyncEngine, full_name: string): void;
-export function handle_ws_edn(sync: SyncEngine, edn: any): void;
+export function set_twitter_username(sync: SyncEngine, twitter_username: string): void;
+export function set_website_url(sync: SyncEngine, website_url: string): void;

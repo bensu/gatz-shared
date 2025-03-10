@@ -1,8 +1,7 @@
 (ns gatz.expo.core
   (:require [crdt.core :as crdt]
             [crdt.ulid]
-            [cljs.reader :as reader])
-  (:import [crdt.core HLC]))
+            [cljs.reader :as reader]))
 
 ;; Export core CRDT constructors
 (defn ^:export new-lww [clock value]
@@ -159,10 +158,32 @@
 
 (defn ^:export set-full-name [sync full-name]
   (let [lww (crdt/lww (-tick sync) full-name)
-        ^HLC clock (-tick sync)
+        ^crdt/HLC clock (-tick sync)
         delta {:crdt/clock clock
                :user/updated_at (.-ts clock)
                :user/profile {:profile/full_name lww}}
+        action {:gatz.crdt.user/action :gatz.crdt.user/update-profile
+                :gatz.crdt.user/delta delta}]
+    (-merge-to-me sync delta)
+    (-send-user-action! sync action)))
+
+(defn ^:export set-twitter-username [sync twitter-username]
+  (let [lww (crdt/lww (-tick sync) twitter-username)
+        ^crdt/HLC clock (-tick sync)
+        delta {:crdt/clock clock
+               :user/updated_at (.-ts clock)
+               :user/profile {:profile/urls {:profile.urls/twitter lww}}}
+        action {:gatz.crdt.user/action :gatz.crdt.user/update-profile
+                :gatz.crdt.user/delta delta}]
+    (-merge-to-me sync delta)
+    (-send-user-action! sync action)))
+
+(defn ^:export set-website-url [sync website-url]
+  (let [lww (crdt/lww (-tick sync) website-url)
+        ^crdt/HLC clock (-tick sync)
+        delta {:crdt/clock clock
+               :user/updated_at (.-ts clock)
+               :user/profile {:profile/urls {:profile.urls/website lww}}}
         action {:gatz.crdt.user/action :gatz.crdt.user/update-profile
                 :gatz.crdt.user/delta delta}]
     (-merge-to-me sync delta)
