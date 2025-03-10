@@ -34,3 +34,4 @@ export function merge_to_me(sync: SyncEngine, delta: any): void;
 export function set_full_name(sync: SyncEngine, full_name: string): void;
 export function set_twitter_username(sync: SyncEngine, twitter_username: string): void;
 export function set_website_url(sync: SyncEngine, website_url: string): void;
+export function set_profile_picture(sync: SyncEngine, url: string): void;

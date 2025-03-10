@@ -168,8 +168,8 @@
     (-send-user-action! sync action)))
 
 (defn ^:export set-twitter-username [sync twitter-username]
-  (let [lww (crdt/lww (-tick sync) twitter-username)
-        ^crdt/HLC clock (-tick sync)
+  (let [^crdt/HLC clock (-tick sync)
+        lww (crdt/lww clock twitter-username)
         delta {:crdt/clock clock
                :user/updated_at (.-ts clock)
                :user/profile {:profile/urls {:profile.urls/twitter lww}}}
@@ -179,12 +179,23 @@
     (-send-user-action! sync action)))
 
 (defn ^:export set-website-url [sync website-url]
-  (let [lww (crdt/lww (-tick sync) website-url)
-        ^crdt/HLC clock (-tick sync)
+  (let [^crdt/HLC clock (-tick sync)
+        lww (crdt/lww clock website-url)
         delta {:crdt/clock clock
                :user/updated_at (.-ts clock)
                :user/profile {:profile/urls {:profile.urls/website lww}}}
         action {:gatz.crdt.user/action :gatz.crdt.user/update-profile
+                :gatz.crdt.user/delta delta}]
+    (-merge-to-me sync delta)
+    (-send-user-action! sync action)))
+
+(defn ^:export set-profile-picture [sync url]
+  (let [^crdt/HLC clock (-tick sync)
+        lww (crdt/lww clock url)
+        delta {:crdt/clock clock
+               :user/updated_at (.-ts clock)
+               :user/avatar lww}
+        action {:gatz.crdt.user/action :gatz.crdt.user/update-avatar
                 :gatz.crdt.user/delta delta}]
     (-merge-to-me sync delta)
     (-send-user-action! sync action)))
