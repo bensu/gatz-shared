@@ -20,4 +20,4 @@ app/
 target/
 .cpcache/
 bin/tailwind
-npm-package/dist
+# npm-package/dist
