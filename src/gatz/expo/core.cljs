@@ -143,11 +143,12 @@
                          delta))))
   (-subscribe-to-me [this listener-name callback]
     (assert (fn? callback) "callback must be a function")
-    (when-not @user-atom
-      (-sync-user this))
     (add-watch user-atom listener-name (fn [_ _ old new]
                                          (when-not (= old new)
-                                           (callback new)))))
+                                           (callback new))))
+    (if-let [user @user-atom]
+      (js/Promise.resolve user)
+      (-sync-user this)))
   (-unsubscribe-from-me [_ listener-name]
     (remove-watch user-atom listener-name))
   (-handle-ws-edn [this edn]
@@ -200,10 +201,14 @@
     (-merge-to-me sync delta)
     (-send-user-action! sync action)))
 
+(defn ->out [user]
+  (clj->js (crdt/-value user)))
+
 (defn ^:export subscribe-to-me [sync lid callback]
-  (-subscribe-to-me sync lid (fn [new]
-                               (callback (clj->js (crdt/-value new)))))
-  (fn [] (-unsubscribe-from-me sync lid)))
+  (let [cb (fn [new]
+             (callback (->out new)))]
+    #js {:user (.then (-subscribe-to-me sync lid cb) ->out)
+         :unsubscribe (fn [] (-unsubscribe-from-me sync lid))}))
 
 (defn ^:export handle-ws-edn [sync edn]
   (-handle-ws-edn sync edn))
