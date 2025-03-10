@@ -1,10 +1,5 @@
 ;; shadow-cljs configuration
-{:source-paths ["src"]
-
-;;  :dependencies [[lilactown/helix "0.0.13"]]
-
- :deps {:aliases [:cljs]}
-
+{:deps {:aliases [:cljs]}
  :builds {
           ;; :app {:target :react-native
           ;;       :init-fn test.app/init
