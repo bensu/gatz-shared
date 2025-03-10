@@ -467,6 +467,19 @@
     (-apply-delta this (:xs that))))
 
 #?(:clj
+   (defmethod print-method LWWSet
+     [^LWWSet lwws ^java.io.Writer writer]
+     (.write writer "#crdt/lww-set ")
+     (print-method (.xs lwws) writer)))
+
+#?(:cljs
+   (extend-protocol IPrintWithWriter
+     LWWSet
+     (-pr-writer [obj writer _]
+       (let [tagged-value (tagged-literal 'crdt/lww-set (.-xs obj))]
+         (-write writer (pr-str tagged-value))))))
+
+#?(:clj
    (extend-type LWWSet
      juxt-nippy/IFreezable1
      (-freeze-without-meta! [this out]
@@ -480,6 +493,14 @@
      xs
      (let [inner (into {} (map (fn [x] [x (LWW. clock true)]) (or xs #{})))]
        (LWWSet. inner)))))
+
+(defn read-lww-set [xs]
+  (if (instance? LWWSet xs)
+    xs
+    (LWWSet. xs)))
+
+#?(:cljs
+   (reader/register-tag-parser! 'crdt/lww-set read-lww-set))
 
 (defn lww-set-delta
   ([clock s]
