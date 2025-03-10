@@ -52,11 +52,7 @@
 ;; HTTP
 
 (defn ^:export read-edn [edn-str]
-  (reader/read-string
-   #_{:readers {'crdt/ulid ulid/read-ulid "crdt/ulid" ulid/read-ulid}
-      :default @reader/*default-data-reader-fn*
-      :eof nil}
-   edn-str))
+  (reader/read-string edn-str))
 
 (defn get! [base-url token url]
   (.then
@@ -66,11 +62,7 @@
                                        "Content-Type" "application/edn"}})
           (fn [response]
             (.text response)))
-   (fn [text]
-     (js/console.log text)
-     (let [parse (read-edn text)]
-       (js/console.log parse)
-       parse))))
+   read-edn))
 
 (defn post! [base-url token url data]
   (.then
@@ -82,11 +74,7 @@
                          :body (pr-str data)})
           (fn [response]
             (.text response)))
-   (fn [text]
-     (js/console.log text)
-     (let [parse (read-edn text)]
-       (js/console.log parse)
-       parse))))
+   read-edn))
 
 
 (defn get-user! [base-url token]
