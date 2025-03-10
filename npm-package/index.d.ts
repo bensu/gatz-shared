@@ -14,4 +14,19 @@ export function get_value(crdt: CRDT): any;
 
 export function new_hlc(node_id: UUID): Clock;
 // export function random_uuid(): UUID;
-export function read_crdt(edn_str: string): CRDT; 
+export function read_crdt(edn_str: string): CRDT;
+
+export function read_edn(edn_str: string): any;
+
+// ============================================================
+// Sync Engine
+
+export type SyncEngine = any;
+
+type EdnClient = any;
+
+export function new_sync_engine(base_url: string, token: string, user_id: UUID): SyncEngine;
+export function subscribe_to_me(sync: SyncEngine, listener_name: string, callback: (user: any) => void): () => void;
+export function merge_to_me(sync: SyncEngine, delta: any): void;
+export function set_full_name(sync: SyncEngine, full_name: string): void;
+export function handle_ws_edn(sync: SyncEngine, edn: any): void;
