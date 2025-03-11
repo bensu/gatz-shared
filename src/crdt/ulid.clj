@@ -7,7 +7,8 @@
            [java.io Writer]
            [java.util UUID]
            [java.nio.charset StandardCharsets]
-           [org.agrona MutableDirectBuffer]))
+           [org.agrona MutableDirectBuffer]
+           [com.fasterxml.uuid Generators]))
 
 ;; https://github.com/f4b6a3/ulid-creator?tab=readme-ov-file
 
@@ -32,6 +33,12 @@
         (try
           (Ulid/from x)
           (catch Exception _ nil)))))
+
+;; UUID uuid = Generators.timeBasedEpochGenerator () .generate (); // Version 7
+(def ^:private time-based-epoch-generator (Generators/timeBasedEpochGenerator))
+
+(defn random-time-uuid ^UUID []
+  (.generate time-based-epoch-generator))
 
 ;; ==================================================================
 ;; Integrations
