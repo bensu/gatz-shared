@@ -5,15 +5,19 @@
             [juxt.clojars-mirrors.nippy.v3v1v1.taoensso.nippy :as juxt-nippy])
   (:import [com.github.f4b6a3.ulid Ulid UlidCreator]
            [java.io Writer]
-           [java.util UUID]
+           [java.util UUID Date]
            [java.nio.charset StandardCharsets]
            [org.agrona MutableDirectBuffer]
-           [com.fasterxml.uuid Generators]))
+           [com.fasterxml.uuid Generators UUIDClock]))
 
 ;; https://github.com/f4b6a3/ulid-creator?tab=readme-ov-file
 
 ;; ==================================================================
 ;; API
+
+(defn fixed-clock ^UUIDClock [^Long ms]
+  (proxy [UUIDClock] []
+    (currentTimeMillis [] ms)))
 
 (defn random ^Ulid []
   (UlidCreator/getUlid))
@@ -35,10 +39,15 @@
           (catch Exception _ nil)))))
 
 ;; UUID uuid = Generators.timeBasedEpochGenerator () .generate (); // Version 7
-(def ^:private time-based-epoch-generator (Generators/timeBasedEpochGenerator))
+(def ^:private time-based-epoch-generator (Generators/timeBasedEpochRandomGenerator))
 
-(defn random-time-uuid ^UUID []
-  (.generate time-based-epoch-generator))
+(defn random-time-uuid
+  "Generate a UUID v7 based on a specific timestamp.
+   timestamp should be a java.util.Date or java.time.Instant"
+  (^UUID [] (.generate time-based-epoch-generator))
+  (^UUID [^Date ts]
+   (let [ms (.getTime ts)]
+     (.generate (Generators/timeBasedEpochRandomGenerator nil (fixed-clock ms))))))
 
 ;; ==================================================================
 ;; Integrations
