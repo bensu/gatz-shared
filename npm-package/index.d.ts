@@ -1,3 +1,4 @@
+
 export type CRDT = any;
 export type Clock = any;
 export type UUID = string;
@@ -35,3 +36,9 @@ export function set_full_name(sync: SyncEngine, full_name: string): void;
 export function set_twitter_username(sync: SyncEngine, twitter_username: string): void;
 export function set_website_url(sync: SyncEngine, website_url: string): void;
 export function set_profile_picture(sync: SyncEngine, url: string): void;
+export function set_location_setting(sync: SyncEngine, enabled: boolean): void;
+export function disable_notification_settings(sync: SyncEngine): void;
+export function enable_notification_settings(sync: SyncEngine): void;
+export type NotificationField = "overall" | "activity" | "subscribe_on_comment" | "suggestions_from_gatz" | "friend_accepted";
+export function set_notification_settings_field(sync: SyncEngine, field: NotificationField, value: string | boolean): void;
+export function register_push_token(sync: SyncEngine, token: string): void;

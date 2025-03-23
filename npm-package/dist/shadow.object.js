@@ -9,7 +9,6 @@ require("./clojure.data.js");
 require("./cljs.core.async.impl.protocols.js");
 require("./shadow.util.js");
 var cognitect=$CLJS.cognitect || ($CLJS.cognitect = {});
-var module$shadow_js_shim_module$react=$CLJS.module$shadow_js_shim_module$react || ($CLJS.module$shadow_js_shim_module$react = {});
 var clojure=$CLJS.clojure || ($CLJS.clojure = {});
 var crdt=$CLJS.crdt || ($CLJS.crdt = {});
 var cljs=$CLJS.cljs || ($CLJS.cljs = {});

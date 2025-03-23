@@ -3,11 +3,8 @@ var $jscomp = $CLJS.$jscomp;
 var COMPILED = false;
 require("./cljs.core.js");
 var clojure=$CLJS.clojure || ($CLJS.clojure = {});
-var crdt=$CLJS.crdt || ($CLJS.crdt = {});
 var cljs=$CLJS.cljs || ($CLJS.cljs = {});
 var goog=$CLJS.goog || ($CLJS.goog = {});
-var gatz=$CLJS.gatz || ($CLJS.gatz = {});
-var medley=$CLJS.medley || ($CLJS.medley = {});
 
 $CLJS.SHADOW_ENV.setLoaded("clojure.string.js");
 

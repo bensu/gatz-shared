@@ -4,7 +4,6 @@ var COMPILED = false;
 require("./com.cognitect.transit.util.js");
 require("./com.cognitect.transit.eq.js");
 var cognitect=$CLJS.cognitect || ($CLJS.cognitect = {});
-var module$shadow_js_shim_module$react=$CLJS.module$shadow_js_shim_module$react || ($CLJS.module$shadow_js_shim_module$react = {});
 var clojure=$CLJS.clojure || ($CLJS.clojure = {});
 var crdt=$CLJS.crdt || ($CLJS.crdt = {});
 var cljs=$CLJS.cljs || ($CLJS.cljs = {});

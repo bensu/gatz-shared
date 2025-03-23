@@ -127,7 +127,11 @@
   (-merge-to-me [_ delta]
     (swap! user-atom (fn [old]
                        (if old
-                         (crdt/-apply-delta old delta)
+                         (try
+                           (crdt/-apply-delta old delta)
+                           (catch js/Error e
+                             (println "error applying delta" e)
+                             old))
                          delta))))
   (-subscribe-to-me [this listener-name callback]
     (assert (fn? callback) "callback must be a function")
@@ -149,7 +153,7 @@
   (let [lww (crdt/lww (-tick sync) full-name)
         ^crdt/HLC clock (-tick sync)
         delta {:crdt/clock clock
-               :user/updated_at (.-ts clock)
+               :user/updated_at (crdt/max-wins (.-ts clock))
                :user/profile {:profile/full_name lww}}
         action {:gatz.crdt.user/action :gatz.crdt.user/update-profile
                 :gatz.crdt.user/delta delta}]
@@ -160,7 +164,7 @@
   (let [^crdt/HLC clock (-tick sync)
         lww (crdt/lww clock twitter-username)
         delta {:crdt/clock clock
-               :user/updated_at (.-ts clock)
+               :user/updated_at (crdt/max-wins (.-ts clock))
                :user/profile {:profile/urls {:profile.urls/twitter lww}}}
         action {:gatz.crdt.user/action :gatz.crdt.user/update-profile
                 :gatz.crdt.user/delta delta}]
@@ -171,7 +175,7 @@
   (let [^crdt/HLC clock (-tick sync)
         lww (crdt/lww clock website-url)
         delta {:crdt/clock clock
-               :user/updated_at (.-ts clock)
+               :user/updated_at (crdt/max-wins (.-ts clock))
                :user/profile {:profile/urls {:profile.urls/website lww}}}
         action {:gatz.crdt.user/action :gatz.crdt.user/update-profile
                 :gatz.crdt.user/delta delta}]
@@ -182,12 +186,99 @@
   (let [^crdt/HLC clock (-tick sync)
         lww (crdt/lww clock url)
         delta {:crdt/clock clock
-               :user/updated_at (.-ts clock)
+               :user/updated_at (crdt/max-wins (.-ts clock))
                :user/avatar lww}
         action {:gatz.crdt.user/action :gatz.crdt.user/update-avatar
                 :gatz.crdt.user/delta delta}]
     (-merge-to-me sync delta)
     (-send-user-action! sync action)))
+
+(defn ^:export set-location-setting [sync enabled]
+  {:pre [(boolean? enabled)]}
+  (let [^crdt/HLC clock (-tick sync)
+        lww (crdt/lww clock enabled)
+        delta {:crdt/clock clock
+               :user/updated_at (crdt/max-wins (.-ts clock))
+               :user/settings {:settings/location {:settings.location/enabled lww}}}
+        action {:gatz.crdt.user/action :gatz.crdt.user/update-location-settings
+                :gatz.crdt.user/delta delta}]
+    (-merge-to-me sync delta)
+    (-send-user-action! sync action)))
+
+(defn set-notification-settings [sync nts-settings]
+  (let [^crdt/HLC clock (-tick sync)
+        delta {:crdt/clock clock
+               :user/updated_at (crdt/max-wins (.-ts clock))
+               :user/settings {:settings/notifications (crdt/->lww-map nts-settings clock)}}
+        action {:gatz.crdt.user/action :gatz.crdt.user/update-notifications
+                :gatz.crdt.user/delta delta}]
+    (-merge-to-me sync delta)
+    (-send-user-action! sync action)))
+
+(def notifications-off
+  {:settings.notification/overall false
+   :settings.notification/activity :settings.notification/none
+   :settings.notification/subscribe_on_comment false
+   :settings.notification/suggestions_from_gatz false
+   :settings.notification/friend_accepted false})
+
+(def notifications-on
+  {:settings.notification/overall true
+   :settings.notification/activity :settings.notification/daily
+   :settings.notification/subscribe_on_comment true
+   :settings.notification/suggestions_from_gatz true
+   :settings.notification/friend_accepted true})
+
+(defn ^:export disable-notification-settings [sync]
+  (set-notification-settings sync notifications-off))
+
+(defn ^:export enable-notification-settings [sync]
+  (set-notification-settings sync notifications-on))
+
+(def notification-fields
+  #{:settings.notification/overall
+    :settings.notification/activity
+    :settings.notification/subscribe_on_comment
+    :settings.notification/suggestions_from_gatz
+    :settings.notification/friend_accepted})
+
+(defn ^:export set-notification-settings-field [sync field value]
+  (let [^crdt/HLC clock (-tick sync)
+        field (keyword "settings.notification" field)
+        value (if (= field :settings.notification/activity)
+                (keyword "settings.notification" value)
+                (boolean value))
+        lww (crdt/lww clock value)
+        delta {:crdt/clock clock
+               :user/updated_at (crdt/max-wins (.-ts clock))
+               :user/settings {:settings/notifications {field lww}}}
+        action {:gatz.crdt.user/action :gatz.crdt.user/update-notifications
+                :gatz.crdt.user/delta delta}]
+
+    (assert (contains? notification-fields field) "Invalid field")
+    (if (= :settings.notification/activity field)
+      (assert (contains? #{:settings.notification/daily :settings.notification/none} value))
+      (assert (boolean? value)))
+
+    (-merge-to-me sync delta)
+    (-send-user-action! sync action)))
+
+(defn ^:export register-push-token [sync token]
+  {:pre [(string? token)]}
+
+  (let [^crdt/HLC clock (-tick sync)
+        expo-token {:push/service :push/expo
+                    :push/token token
+                    :push/created_at (js/Date.)}
+        delta {:crdt/clock clock
+               :user/updated_at (crdt/max-wins (.-ts clock))
+               :user/push_tokens {:push/expo (crdt/->LWW clock expo-token)}
+               :user/settings {:settings/notifications (crdt/->lww-map notifications-on clock)}}
+        action {:gatz.crdt.user/action :gatz.crdt.user/add-push-token
+                :gatz.crdt.user/delta delta}]
+    (-merge-to-me sync delta)
+    (-send-user-action! sync action)))
+
 
 (defn ->out [user]
   (clj->js (crdt/-value user)))

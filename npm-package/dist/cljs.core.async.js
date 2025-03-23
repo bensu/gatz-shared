@@ -9,7 +9,6 @@ require("./cljs.core.async.impl.timers.js");
 require("./cljs.core.async.impl.dispatch.js");
 require("./cljs.core.async.impl.ioc_helpers.js");
 var cognitect=$CLJS.cognitect || ($CLJS.cognitect = {});
-var module$shadow_js_shim_module$react=$CLJS.module$shadow_js_shim_module$react || ($CLJS.module$shadow_js_shim_module$react = {});
 var clojure=$CLJS.clojure || ($CLJS.clojure = {});
 var crdt=$CLJS.crdt || ($CLJS.crdt = {});
 var cljs=$CLJS.cljs || ($CLJS.cljs = {});

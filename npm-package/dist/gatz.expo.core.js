@@ -5,12 +5,15 @@ require("./cljs.core.js");
 require("./crdt.core.js");
 require("./crdt.ulid.js");
 require("./cljs.reader.js");
+var cognitect=$CLJS.cognitect || ($CLJS.cognitect = {});
 var clojure=$CLJS.clojure || ($CLJS.clojure = {});
 var crdt=$CLJS.crdt || ($CLJS.crdt = {});
 var cljs=$CLJS.cljs || ($CLJS.cljs = {});
+var shadow=$CLJS.shadow || ($CLJS.shadow = {});
 var goog=$CLJS.goog || ($CLJS.goog = {});
 var gatz=$CLJS.gatz || ($CLJS.gatz = {});
 var medley=$CLJS.medley || ($CLJS.medley = {});
+var com=$CLJS.com || ($CLJS.com = {});
 
 $CLJS.SHADOW_ENV.setLoaded("gatz.expo.core.js");
 
@@ -74,7 +77,7 @@ return new cljs.core.Keyword(null,"user","user",1532431356).cljs$core$IFn$_invok
  */
 gatz.expo.core.ISyncEngine = function(){};
 
-var gatz$expo$core$ISyncEngine$_tick$dyn_47660 = (function (_){
+var gatz$expo$core$ISyncEngine$_tick$dyn_45137 = (function (_){
 var x__5350__auto__ = (((_ == null))?null:_);
 var m__5351__auto__ = (gatz.expo.core._tick[goog.typeOf(x__5350__auto__)]);
 if((!((m__5351__auto__ == null)))){
@@ -92,11 +95,11 @@ gatz.expo.core._tick = (function gatz$expo$core$_tick(_){
 if((((!((_ == null)))) && ((!((_.gatz$expo$core$ISyncEngine$_tick$arity$1 == null)))))){
 return _.gatz$expo$core$ISyncEngine$_tick$arity$1(_);
 } else {
-return gatz$expo$core$ISyncEngine$_tick$dyn_47660(_);
+return gatz$expo$core$ISyncEngine$_tick$dyn_45137(_);
 }
 });
 
-var gatz$expo$core$ISyncEngine$_merge_to_me$dyn_47661 = (function (_,delta){
+var gatz$expo$core$ISyncEngine$_merge_to_me$dyn_45138 = (function (_,delta){
 var x__5350__auto__ = (((_ == null))?null:_);
 var m__5351__auto__ = (gatz.expo.core._merge_to_me[goog.typeOf(x__5350__auto__)]);
 if((!((m__5351__auto__ == null)))){
@@ -114,11 +117,11 @@ gatz.expo.core._merge_to_me = (function gatz$expo$core$_merge_to_me(_,delta){
 if((((!((_ == null)))) && ((!((_.gatz$expo$core$ISyncEngine$_merge_to_me$arity$2 == null)))))){
 return _.gatz$expo$core$ISyncEngine$_merge_to_me$arity$2(_,delta);
 } else {
-return gatz$expo$core$ISyncEngine$_merge_to_me$dyn_47661(_,delta);
+return gatz$expo$core$ISyncEngine$_merge_to_me$dyn_45138(_,delta);
 }
 });
 
-var gatz$expo$core$ISyncEngine$_sync_user$dyn_47662 = (function (_){
+var gatz$expo$core$ISyncEngine$_sync_user$dyn_45139 = (function (_){
 var x__5350__auto__ = (((_ == null))?null:_);
 var m__5351__auto__ = (gatz.expo.core._sync_user[goog.typeOf(x__5350__auto__)]);
 if((!((m__5351__auto__ == null)))){
@@ -136,11 +139,11 @@ gatz.expo.core._sync_user = (function gatz$expo$core$_sync_user(_){
 if((((!((_ == null)))) && ((!((_.gatz$expo$core$ISyncEngine$_sync_user$arity$1 == null)))))){
 return _.gatz$expo$core$ISyncEngine$_sync_user$arity$1(_);
 } else {
-return gatz$expo$core$ISyncEngine$_sync_user$dyn_47662(_);
+return gatz$expo$core$ISyncEngine$_sync_user$dyn_45139(_);
 }
 });
 
-var gatz$expo$core$ISyncEngine$_subscribe_to_me$dyn_47663 = (function (_,listener_name,callback){
+var gatz$expo$core$ISyncEngine$_subscribe_to_me$dyn_45140 = (function (_,listener_name,callback){
 var x__5350__auto__ = (((_ == null))?null:_);
 var m__5351__auto__ = (gatz.expo.core._subscribe_to_me[goog.typeOf(x__5350__auto__)]);
 if((!((m__5351__auto__ == null)))){
@@ -158,11 +161,11 @@ gatz.expo.core._subscribe_to_me = (function gatz$expo$core$_subscribe_to_me(_,li
 if((((!((_ == null)))) && ((!((_.gatz$expo$core$ISyncEngine$_subscribe_to_me$arity$3 == null)))))){
 return _.gatz$expo$core$ISyncEngine$_subscribe_to_me$arity$3(_,listener_name,callback);
 } else {
-return gatz$expo$core$ISyncEngine$_subscribe_to_me$dyn_47663(_,listener_name,callback);
+return gatz$expo$core$ISyncEngine$_subscribe_to_me$dyn_45140(_,listener_name,callback);
 }
 });
 
-var gatz$expo$core$ISyncEngine$_unsubscribe_from_me$dyn_47664 = (function (_,listener_name){
+var gatz$expo$core$ISyncEngine$_unsubscribe_from_me$dyn_45141 = (function (_,listener_name){
 var x__5350__auto__ = (((_ == null))?null:_);
 var m__5351__auto__ = (gatz.expo.core._unsubscribe_from_me[goog.typeOf(x__5350__auto__)]);
 if((!((m__5351__auto__ == null)))){
@@ -180,11 +183,11 @@ gatz.expo.core._unsubscribe_from_me = (function gatz$expo$core$_unsubscribe_from
 if((((!((_ == null)))) && ((!((_.gatz$expo$core$ISyncEngine$_unsubscribe_from_me$arity$2 == null)))))){
 return _.gatz$expo$core$ISyncEngine$_unsubscribe_from_me$arity$2(_,listener_name);
 } else {
-return gatz$expo$core$ISyncEngine$_unsubscribe_from_me$dyn_47664(_,listener_name);
+return gatz$expo$core$ISyncEngine$_unsubscribe_from_me$dyn_45141(_,listener_name);
 }
 });
 
-var gatz$expo$core$ISyncEngine$_handle_ws_edn$dyn_47665 = (function (_,edn){
+var gatz$expo$core$ISyncEngine$_handle_ws_edn$dyn_45142 = (function (_,edn){
 var x__5350__auto__ = (((_ == null))?null:_);
 var m__5351__auto__ = (gatz.expo.core._handle_ws_edn[goog.typeOf(x__5350__auto__)]);
 if((!((m__5351__auto__ == null)))){
@@ -202,7 +205,7 @@ gatz.expo.core._handle_ws_edn = (function gatz$expo$core$_handle_ws_edn(_,edn){
 if((((!((_ == null)))) && ((!((_.gatz$expo$core$ISyncEngine$_handle_ws_edn$arity$2 == null)))))){
 return _.gatz$expo$core$ISyncEngine$_handle_ws_edn$arity$2(_,edn);
 } else {
-return gatz$expo$core$ISyncEngine$_handle_ws_edn$dyn_47665(_,edn);
+return gatz$expo$core$ISyncEngine$_handle_ws_edn$dyn_45142(_,edn);
 }
 });
 
@@ -212,7 +215,7 @@ return gatz$expo$core$ISyncEngine$_handle_ws_edn$dyn_47665(_,edn);
  */
 gatz.expo.core.IClient = function(){};
 
-var gatz$expo$core$IClient$_get_user$dyn_47666 = (function (client){
+var gatz$expo$core$IClient$_get_user$dyn_45143 = (function (client){
 var x__5350__auto__ = (((client == null))?null:client);
 var m__5351__auto__ = (gatz.expo.core._get_user[goog.typeOf(x__5350__auto__)]);
 if((!((m__5351__auto__ == null)))){
@@ -230,11 +233,11 @@ gatz.expo.core._get_user = (function gatz$expo$core$_get_user(client){
 if((((!((client == null)))) && ((!((client.gatz$expo$core$IClient$_get_user$arity$1 == null)))))){
 return client.gatz$expo$core$IClient$_get_user$arity$1(client);
 } else {
-return gatz$expo$core$IClient$_get_user$dyn_47666(client);
+return gatz$expo$core$IClient$_get_user$dyn_45143(client);
 }
 });
 
-var gatz$expo$core$IClient$_send_user_action_BANG_$dyn_47667 = (function (client,action){
+var gatz$expo$core$IClient$_send_user_action_BANG_$dyn_45144 = (function (client,action){
 var x__5350__auto__ = (((client == null))?null:client);
 var m__5351__auto__ = (gatz.expo.core._send_user_action_BANG_[goog.typeOf(x__5350__auto__)]);
 if((!((m__5351__auto__ == null)))){
@@ -252,7 +255,7 @@ gatz.expo.core._send_user_action_BANG_ = (function gatz$expo$core$_send_user_act
 if((((!((client == null)))) && ((!((client.gatz$expo$core$IClient$_send_user_action_BANG_$arity$2 == null)))))){
 return client.gatz$expo$core$IClient$_send_user_action_BANG_$arity$2(client,action);
 } else {
-return gatz$expo$core$IClient$_send_user_action_BANG_$dyn_47667(client,action);
+return gatz$expo$core$IClient$_send_user_action_BANG_$dyn_45144(client,action);
 }
 });
 
@@ -262,8 +265,8 @@ gatz.expo.core.handle_evt_BANG_ = (function (){var method_table__5599__auto__ = 
 var prefer_table__5600__auto__ = cljs.core.atom.cljs$core$IFn$_invoke$arity$1(cljs.core.PersistentArrayMap.EMPTY);
 var method_cache__5601__auto__ = cljs.core.atom.cljs$core$IFn$_invoke$arity$1(cljs.core.PersistentArrayMap.EMPTY);
 var cached_hierarchy__5602__auto__ = cljs.core.atom.cljs$core$IFn$_invoke$arity$1(cljs.core.PersistentArrayMap.EMPTY);
-var hierarchy__5603__auto__ = cljs.core.get.cljs$core$IFn$_invoke$arity$3(cljs.core.PersistentArrayMap.EMPTY,new cljs.core.Keyword(null,"hierarchy","hierarchy",-1053470341),(function (){var fexpr__47658 = cljs.core.get_global_hierarchy;
-return (fexpr__47658.cljs$core$IFn$_invoke$arity$0 ? fexpr__47658.cljs$core$IFn$_invoke$arity$0() : fexpr__47658.call(null, ));
+var hierarchy__5603__auto__ = cljs.core.get.cljs$core$IFn$_invoke$arity$3(cljs.core.PersistentArrayMap.EMPTY,new cljs.core.Keyword(null,"hierarchy","hierarchy",-1053470341),(function (){var fexpr__45134 = cljs.core.get_global_hierarchy;
+return (fexpr__45134.cljs$core$IFn$_invoke$arity$0 ? fexpr__45134.cljs$core$IFn$_invoke$arity$0() : fexpr__45134.call(null, ));
 })());
 return (new cljs.core.MultiFn(cljs.core.symbol.cljs$core$IFn$_invoke$arity$2("gatz.expo.core","handle-evt!"),(function (_sync,evt){
 return new cljs.core.Keyword("event","type","event/type",1532247862).cljs$core$IFn$_invoke$arity$1(evt);
@@ -322,8 +325,17 @@ var self__ = this;
 var ___$1 = this;
 return cljs.core.swap_BANG_.cljs$core$IFn$_invoke$arity$2(self__.user_atom,(function (old){
 if(cljs.core.truth_(old)){
-return crdt.core._apply_delta(old,delta);
+try{return crdt.core._apply_delta(old,delta);
+}catch (e45135){if((e45135 instanceof Error)){
+var e = e45135;
+cljs.core.println.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2(["error applying delta",e], 0));
+
+return old;
 } else {
+throw e45135;
+
+}
+}} else {
 return delta;
 }
 }));
@@ -391,7 +403,7 @@ return (new gatz.expo.core.SyncEngine(base_url,token,cljs.core.uuid(user_id),clj
 gatz.expo.core.set_full_name = (function gatz$expo$core$set_full_name(sync,full_name){
 var lww = crdt.core.lww(gatz.expo.core._tick(sync),full_name);
 var clock = gatz.expo.core._tick(sync);
-var delta = new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword("crdt","clock","crdt/clock",-897362432),clock,new cljs.core.Keyword("user","updated_at","user/updated_at",-459633829),clock.ts,new cljs.core.Keyword("user","profile","user/profile",-543273885),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword("profile","full_name","profile/full_name",1616911543),lww], null)], null);
+var delta = new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword("crdt","clock","crdt/clock",-897362432),clock,new cljs.core.Keyword("user","updated_at","user/updated_at",-459633829),crdt.core.max_wins(clock.ts),new cljs.core.Keyword("user","profile","user/profile",-543273885),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword("profile","full_name","profile/full_name",1616911543),lww], null)], null);
 var action = new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword("gatz.crdt.user","action","gatz.crdt.user/action",229843172),new cljs.core.Keyword("gatz.crdt.user","update-profile","gatz.crdt.user/update-profile",-1195429187),new cljs.core.Keyword("gatz.crdt.user","delta","gatz.crdt.user/delta",686290465),delta], null);
 gatz.expo.core._merge_to_me(sync,delta);
 
@@ -400,7 +412,7 @@ return gatz.expo.core._send_user_action_BANG_(sync,action);
 gatz.expo.core.set_twitter_username = (function gatz$expo$core$set_twitter_username(sync,twitter_username){
 var clock = gatz.expo.core._tick(sync);
 var lww = crdt.core.lww(clock,twitter_username);
-var delta = new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword("crdt","clock","crdt/clock",-897362432),clock,new cljs.core.Keyword("user","updated_at","user/updated_at",-459633829),clock.ts,new cljs.core.Keyword("user","profile","user/profile",-543273885),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword("profile","urls","profile/urls",-483268738),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword("profile.urls","twitter","profile.urls/twitter",-1893252286),lww], null)], null)], null);
+var delta = new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword("crdt","clock","crdt/clock",-897362432),clock,new cljs.core.Keyword("user","updated_at","user/updated_at",-459633829),crdt.core.max_wins(clock.ts),new cljs.core.Keyword("user","profile","user/profile",-543273885),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword("profile","urls","profile/urls",-483268738),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword("profile.urls","twitter","profile.urls/twitter",-1893252286),lww], null)], null)], null);
 var action = new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword("gatz.crdt.user","action","gatz.crdt.user/action",229843172),new cljs.core.Keyword("gatz.crdt.user","update-profile","gatz.crdt.user/update-profile",-1195429187),new cljs.core.Keyword("gatz.crdt.user","delta","gatz.crdt.user/delta",686290465),delta], null);
 gatz.expo.core._merge_to_me(sync,delta);
 
@@ -409,7 +421,7 @@ return gatz.expo.core._send_user_action_BANG_(sync,action);
 gatz.expo.core.set_website_url = (function gatz$expo$core$set_website_url(sync,website_url){
 var clock = gatz.expo.core._tick(sync);
 var lww = crdt.core.lww(clock,website_url);
-var delta = new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword("crdt","clock","crdt/clock",-897362432),clock,new cljs.core.Keyword("user","updated_at","user/updated_at",-459633829),clock.ts,new cljs.core.Keyword("user","profile","user/profile",-543273885),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword("profile","urls","profile/urls",-483268738),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword("profile.urls","website","profile.urls/website",-529186096),lww], null)], null)], null);
+var delta = new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword("crdt","clock","crdt/clock",-897362432),clock,new cljs.core.Keyword("user","updated_at","user/updated_at",-459633829),crdt.core.max_wins(clock.ts),new cljs.core.Keyword("user","profile","user/profile",-543273885),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword("profile","urls","profile/urls",-483268738),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword("profile.urls","website","profile.urls/website",-529186096),lww], null)], null)], null);
 var action = new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword("gatz.crdt.user","action","gatz.crdt.user/action",229843172),new cljs.core.Keyword("gatz.crdt.user","update-profile","gatz.crdt.user/update-profile",-1195429187),new cljs.core.Keyword("gatz.crdt.user","delta","gatz.crdt.user/delta",686290465),delta], null);
 gatz.expo.core._merge_to_me(sync,delta);
 
@@ -418,8 +430,81 @@ return gatz.expo.core._send_user_action_BANG_(sync,action);
 gatz.expo.core.set_profile_picture = (function gatz$expo$core$set_profile_picture(sync,url){
 var clock = gatz.expo.core._tick(sync);
 var lww = crdt.core.lww(clock,url);
-var delta = new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword("crdt","clock","crdt/clock",-897362432),clock,new cljs.core.Keyword("user","updated_at","user/updated_at",-459633829),clock.ts,new cljs.core.Keyword("user","avatar","user/avatar",-1612128612),lww], null);
+var delta = new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword("crdt","clock","crdt/clock",-897362432),clock,new cljs.core.Keyword("user","updated_at","user/updated_at",-459633829),crdt.core.max_wins(clock.ts),new cljs.core.Keyword("user","avatar","user/avatar",-1612128612),lww], null);
 var action = new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword("gatz.crdt.user","action","gatz.crdt.user/action",229843172),new cljs.core.Keyword("gatz.crdt.user","update-avatar","gatz.crdt.user/update-avatar",741987756),new cljs.core.Keyword("gatz.crdt.user","delta","gatz.crdt.user/delta",686290465),delta], null);
+gatz.expo.core._merge_to_me(sync,delta);
+
+return gatz.expo.core._send_user_action_BANG_(sync,action);
+});
+gatz.expo.core.set_location_setting = (function gatz$expo$core$set_location_setting(sync,enabled){
+if(cljs.core.boolean_QMARK_(enabled)){
+} else {
+throw (new Error("Assert failed: (boolean? enabled)"));
+}
+
+var clock = gatz.expo.core._tick(sync);
+var lww = crdt.core.lww(clock,enabled);
+var delta = new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword("crdt","clock","crdt/clock",-897362432),clock,new cljs.core.Keyword("user","updated_at","user/updated_at",-459633829),crdt.core.max_wins(clock.ts),new cljs.core.Keyword("user","settings","user/settings",1559882910),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword("settings","location","settings/location",-809825025),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword("settings.location","enabled","settings.location/enabled",517043612),lww], null)], null)], null);
+var action = new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword("gatz.crdt.user","action","gatz.crdt.user/action",229843172),new cljs.core.Keyword("gatz.crdt.user","update-location-settings","gatz.crdt.user/update-location-settings",-172486392),new cljs.core.Keyword("gatz.crdt.user","delta","gatz.crdt.user/delta",686290465),delta], null);
+gatz.expo.core._merge_to_me(sync,delta);
+
+return gatz.expo.core._send_user_action_BANG_(sync,action);
+});
+gatz.expo.core.set_notification_settings = (function gatz$expo$core$set_notification_settings(sync,nts_settings){
+var clock = gatz.expo.core._tick(sync);
+var delta = new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword("crdt","clock","crdt/clock",-897362432),clock,new cljs.core.Keyword("user","updated_at","user/updated_at",-459633829),crdt.core.max_wins(clock.ts),new cljs.core.Keyword("user","settings","user/settings",1559882910),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword("settings","notifications","settings/notifications",-1141008640),crdt.core.__GT_lww_map(nts_settings,clock)], null)], null);
+var action = new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword("gatz.crdt.user","action","gatz.crdt.user/action",229843172),new cljs.core.Keyword("gatz.crdt.user","update-notifications","gatz.crdt.user/update-notifications",-311774965),new cljs.core.Keyword("gatz.crdt.user","delta","gatz.crdt.user/delta",686290465),delta], null);
+gatz.expo.core._merge_to_me(sync,delta);
+
+return gatz.expo.core._send_user_action_BANG_(sync,action);
+});
+gatz.expo.core.notifications_off = new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword("settings.notification","overall","settings.notification/overall",-479178826),false,new cljs.core.Keyword("settings.notification","activity","settings.notification/activity",-1953789177),new cljs.core.Keyword("settings.notification","none","settings.notification/none",1305748588),new cljs.core.Keyword("settings.notification","subscribe_on_comment","settings.notification/subscribe_on_comment",24381537),false,new cljs.core.Keyword("settings.notification","suggestions_from_gatz","settings.notification/suggestions_from_gatz",692775328),false,new cljs.core.Keyword("settings.notification","friend_accepted","settings.notification/friend_accepted",-706087569),false], null);
+gatz.expo.core.notifications_on = new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword("settings.notification","overall","settings.notification/overall",-479178826),true,new cljs.core.Keyword("settings.notification","activity","settings.notification/activity",-1953789177),new cljs.core.Keyword("settings.notification","daily","settings.notification/daily",-854136525),new cljs.core.Keyword("settings.notification","subscribe_on_comment","settings.notification/subscribe_on_comment",24381537),true,new cljs.core.Keyword("settings.notification","suggestions_from_gatz","settings.notification/suggestions_from_gatz",692775328),true,new cljs.core.Keyword("settings.notification","friend_accepted","settings.notification/friend_accepted",-706087569),true], null);
+gatz.expo.core.disable_notification_settings = (function gatz$expo$core$disable_notification_settings(sync){
+return gatz.expo.core.set_notification_settings(sync,gatz.expo.core.notifications_off);
+});
+gatz.expo.core.enable_notification_settings = (function gatz$expo$core$enable_notification_settings(sync){
+return gatz.expo.core.set_notification_settings(sync,gatz.expo.core.notifications_on);
+});
+gatz.expo.core.notification_fields = new cljs.core.PersistentHashSet(null, new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword("settings.notification","suggestions_from_gatz","settings.notification/suggestions_from_gatz",692775328),null,new cljs.core.Keyword("settings.notification","subscribe_on_comment","settings.notification/subscribe_on_comment",24381537),null,new cljs.core.Keyword("settings.notification","activity","settings.notification/activity",-1953789177),null,new cljs.core.Keyword("settings.notification","friend_accepted","settings.notification/friend_accepted",-706087569),null,new cljs.core.Keyword("settings.notification","overall","settings.notification/overall",-479178826),null], null), null);
+gatz.expo.core.set_notification_settings_field = (function gatz$expo$core$set_notification_settings_field(sync,field,value){
+var clock = gatz.expo.core._tick(sync);
+var field__$1 = cljs.core.keyword.cljs$core$IFn$_invoke$arity$2("settings.notification",field);
+var value__$1 = ((cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(field__$1,new cljs.core.Keyword("settings.notification","activity","settings.notification/activity",-1953789177)))?cljs.core.keyword.cljs$core$IFn$_invoke$arity$2("settings.notification",value):cljs.core.boolean$(value));
+var lww = crdt.core.lww(clock,value__$1);
+var delta = new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword("crdt","clock","crdt/clock",-897362432),clock,new cljs.core.Keyword("user","updated_at","user/updated_at",-459633829),crdt.core.max_wins(clock.ts),new cljs.core.Keyword("user","settings","user/settings",1559882910),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword("settings","notifications","settings/notifications",-1141008640),cljs.core.PersistentArrayMap.createAsIfByAssoc([field__$1,lww])], null)], null);
+var action = new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword("gatz.crdt.user","action","gatz.crdt.user/action",229843172),new cljs.core.Keyword("gatz.crdt.user","update-notifications","gatz.crdt.user/update-notifications",-311774965),new cljs.core.Keyword("gatz.crdt.user","delta","gatz.crdt.user/delta",686290465),delta], null);
+if(cljs.core.contains_QMARK_(gatz.expo.core.notification_fields,field__$1)){
+} else {
+throw (new Error(["Assert failed: ","Invalid field","\n","(contains? notification-fields field)"].join('')));
+}
+
+if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(new cljs.core.Keyword("settings.notification","activity","settings.notification/activity",-1953789177),field__$1)){
+if(cljs.core.contains_QMARK_(new cljs.core.PersistentHashSet(null, new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword("settings.notification","none","settings.notification/none",1305748588),null,new cljs.core.Keyword("settings.notification","daily","settings.notification/daily",-854136525),null], null), null),value__$1)){
+} else {
+throw (new Error("Assert failed: (contains? #{:settings.notification/none :settings.notification/daily} value)"));
+}
+} else {
+if(cljs.core.boolean_QMARK_(value__$1)){
+} else {
+throw (new Error("Assert failed: (boolean? value)"));
+}
+}
+
+gatz.expo.core._merge_to_me(sync,delta);
+
+return gatz.expo.core._send_user_action_BANG_(sync,action);
+});
+gatz.expo.core.register_push_token = (function gatz$expo$core$register_push_token(sync,token){
+if(typeof token === 'string'){
+} else {
+throw (new Error("Assert failed: (string? token)"));
+}
+
+var clock = gatz.expo.core._tick(sync);
+var expo_token = new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword("push","service","push/service",-1966777045),new cljs.core.Keyword("push","expo","push/expo",-613772200),new cljs.core.Keyword("push","token","push/token",-1199818081),token,new cljs.core.Keyword("push","created_at","push/created_at",1495277652),(new Date())], null);
+var delta = new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword("crdt","clock","crdt/clock",-897362432),clock,new cljs.core.Keyword("user","updated_at","user/updated_at",-459633829),crdt.core.max_wins(clock.ts),new cljs.core.Keyword("user","push_tokens","user/push_tokens",-2113250435),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword("push","expo","push/expo",-613772200),crdt.core.__GT_LWW(clock,expo_token)], null),new cljs.core.Keyword("user","settings","user/settings",1559882910),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword("settings","notifications","settings/notifications",-1141008640),crdt.core.__GT_lww_map(gatz.expo.core.notifications_on,clock)], null)], null);
+var action = new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword("gatz.crdt.user","action","gatz.crdt.user/action",229843172),new cljs.core.Keyword("gatz.crdt.user","add-push-token","gatz.crdt.user/add-push-token",-1740518064),new cljs.core.Keyword("gatz.crdt.user","delta","gatz.crdt.user/delta",686290465),delta], null);
 gatz.expo.core._merge_to_me(sync,delta);
 
 return gatz.expo.core._send_user_action_BANG_(sync,action);
@@ -429,8 +514,8 @@ return cljs.core.clj__GT_js(crdt.core._value(user));
 });
 gatz.expo.core.subscribe_to_me = (function gatz$expo$core$subscribe_to_me(sync,lid,callback){
 var cb = (function (new$){
-var G__47659 = gatz.expo.core.__GT_out(new$);
-return (callback.cljs$core$IFn$_invoke$arity$1 ? callback.cljs$core$IFn$_invoke$arity$1(G__47659) : callback.call(null, G__47659));
+var G__45136 = gatz.expo.core.__GT_out(new$);
+return (callback.cljs$core$IFn$_invoke$arity$1 ? callback.cljs$core$IFn$_invoke$arity$1(G__45136) : callback.call(null, G__45136));
 });
 return ({"user": gatz.expo.core._subscribe_to_me(sync,lid,cb).then(gatz.expo.core.__GT_out), "unsubscribe": (function (){
 return gatz.expo.core._unsubscribe_from_me(sync,lid);
@@ -455,6 +540,11 @@ Object.defineProperty(module.exports, "set_full_name", { enumerable: true, get: 
 Object.defineProperty(module.exports, "set_twitter_username", { enumerable: true, get: function() { return gatz.expo.core.set_twitter_username; } });
 Object.defineProperty(module.exports, "set_website_url", { enumerable: true, get: function() { return gatz.expo.core.set_website_url; } });
 Object.defineProperty(module.exports, "set_profile_picture", { enumerable: true, get: function() { return gatz.expo.core.set_profile_picture; } });
+Object.defineProperty(module.exports, "set_location_setting", { enumerable: true, get: function() { return gatz.expo.core.set_location_setting; } });
+Object.defineProperty(module.exports, "disable_notification_settings", { enumerable: true, get: function() { return gatz.expo.core.disable_notification_settings; } });
+Object.defineProperty(module.exports, "enable_notification_settings", { enumerable: true, get: function() { return gatz.expo.core.enable_notification_settings; } });
+Object.defineProperty(module.exports, "set_notification_settings_field", { enumerable: true, get: function() { return gatz.expo.core.set_notification_settings_field; } });
+Object.defineProperty(module.exports, "register_push_token", { enumerable: true, get: function() { return gatz.expo.core.register_push_token; } });
 Object.defineProperty(module.exports, "subscribe_to_me", { enumerable: true, get: function() { return gatz.expo.core.subscribe_to_me; } });
 Object.defineProperty(module.exports, "handle_ws_edn", { enumerable: true, get: function() { return gatz.expo.core.handle_ws_edn; } });
 //# sourceMappingURL=gatz.expo.core.js.map

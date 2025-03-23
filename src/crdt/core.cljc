@@ -678,7 +678,7 @@
 (defn ->lww-map
   "Recursively walks the map turning all its leaf nodes to LWW"
   [m clock]
-  {:pre [(map? m) (clock? clock)] :post [(map? %)]}
+  {:pre [(map? m)] :post [(map? %)]}
   (map-vals (fn [v]
               (if (map? v)
                 (->lww-map v clock)

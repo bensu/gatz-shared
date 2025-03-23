@@ -3,7 +3,6 @@ var $jscomp = $CLJS.$jscomp;
 var COMPILED = false;
 require("./cljs.core.js");
 var cognitect=$CLJS.cognitect || ($CLJS.cognitect = {});
-var module$shadow_js_shim_module$react=$CLJS.module$shadow_js_shim_module$react || ($CLJS.module$shadow_js_shim_module$react = {});
 var clojure=$CLJS.clojure || ($CLJS.clojure = {});
 var crdt=$CLJS.crdt || ($CLJS.crdt = {});
 var cljs=$CLJS.cljs || ($CLJS.cljs = {});
