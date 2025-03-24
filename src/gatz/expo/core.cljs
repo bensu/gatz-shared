@@ -51,6 +51,10 @@
 ;; ============================================================
 ;; HTTP
 
+(defn ->out [user]
+  (clj->js (crdt/-value user)))
+
+
 (defn ^:export read-edn [edn-str]
   (reader/read-string edn-str))
 
@@ -120,19 +124,30 @@
   ISyncEngine
   (-tick [_]
     (crdt/new-hlc user-id))
-  (-sync-user [this]
+  (-sync-user [_]
     (.then (get-user! base-url token)
            (fn [user]
-             (-merge-to-me this user))))
-  (-merge-to-me [_ delta]
-    (swap! user-atom (fn [old]
-                       (if old
-                         (try
-                           (crdt/-apply-delta old delta)
-                           (catch js/Error e
-                             (println "error applying delta" e)
-                             old))
-                         delta))))
+             (swap! user-atom (fn [old]
+                                (if old
+                                  (crdt/-apply-delta old user)
+                                  user))))))
+
+  (-merge-to-me [this delta]
+    (if-let [_user @user-atom]
+      (swap! user-atom (fn [old]
+                         (if old
+                           (try
+                             (crdt/-apply-delta old delta)
+                             (catch js/Error e
+                               old))
+                           delta)))
+      ;; if there is nothing in the atom there, we should either
+      ;; fetch the complete object or buffer the delta
+      ;; until we need it
+      ;; TODO: handle failure cases
+      (.then (-sync-user this)
+             (fn []
+               (-merge-to-me this delta)))))
   (-subscribe-to-me [this listener-name callback]
     (assert (fn? callback) "callback must be a function")
     (add-watch user-atom listener-name (fn [_ _ old new]
@@ -272,16 +287,13 @@
                     :push/created_at (js/Date.)}
         delta {:crdt/clock clock
                :user/updated_at (crdt/max-wins (.-ts clock))
-               :user/push_tokens {:push/expo (crdt/->LWW clock expo-token)}
+               :user/push_tokens (crdt/->LWW clock {:push/expo expo-token})
                :user/settings {:settings/notifications (crdt/->lww-map notifications-on clock)}}
         action {:gatz.crdt.user/action :gatz.crdt.user/add-push-token
                 :gatz.crdt.user/delta delta}]
     (-merge-to-me sync delta)
     (-send-user-action! sync action)))
 
-
-(defn ->out [user]
-  (clj->js (crdt/-value user)))
 
 (defn ^:export subscribe-to-me [sync lid callback]
   (let [cb (fn [new]
